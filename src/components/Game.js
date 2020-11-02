@@ -79,10 +79,11 @@ export default function Game() {
             <Form onSubmit={handleSubmit} style={{ margin: 'auto', width: '100vw' }}>
                 <Form.Group>
                     <Form.Label>Letter:</Form.Label>
-                    <Form.Control type="text" htmlSize="10" value={currLetter}
+                    <Form.Control type="text" value={currLetter}
                         onChange={inputChange}
                         maxLength="1"
-                        autoFocus="true" />
+                        autoFocus="true"
+                        style={{ height: '150px', width: '150px' }} />
 
                     <br></br>
 
