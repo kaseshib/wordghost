@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Col, Row } from 'react-bootstrap'
+import { Container, Col, Row, Button } from 'react-bootstrap'
 
 
 
@@ -9,7 +9,7 @@ export default function Game() {
     const [currAddition, setCurrAddition] = useState({ isAfter: true, preletter: '', postletter: '' })
 
     const { isAfter, preletter, postletter } = currAddition
-    const statement = "Type a letter"
+    const [statement, setStatement] = useState("Type in a letter")
 
 
     const handleKeyDown = (event) => {
@@ -44,11 +44,12 @@ export default function Game() {
                 setCurrAddition({ ...currAddition, preletter: event.key, postletter: '' })
             } else {
                 setCurrAddition({ ...currAddition, preletter: '', postletter: '' })
+                setStatement("Press left or right arrow key and press enter to confirm")
             };
         }
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
 
         // cleanup this component
@@ -70,35 +71,35 @@ export default function Game() {
         } else if (isAfter === false) {
             updated = currLetter + updated;
             console.log("sike")
+        } else {
+            return;
         };
 
         setCurrAddition({ isAfter: null, preletter: '', postletter: '' })
         setCurrLetter('')
         setWord(updated)
+        setStatement("Type in a letter")
     }
 
     return (
 
         <Container className="align-items-center" style={{ height: '100vh', textAlign: 'center' }} >
-            <Row>
-                <Col>
-                    <p className="col-md-12" style={{ fontSize: '80px' }}>
-                        <span style={{ color: 'red' }}>{preletter}</span>
-                        <span>{prevWord}</span>
-                        <span style={{ color: 'red' }}>{postletter}</span>
-                    </p>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <h3>{statement}</h3>
-                </Col>
-            </Row>
-            <Row>
-                <Col>
-                    <p style={{ fontSize: '80px' }}>{currLetter}</p>
-                </Col>
-            </Row>
+            <h1 class="display-1" style={{ borderStyle: 'solid', margin: 'auto', border: 'red' }}>WordGhost</h1>
+            <p style={{ fontSize: '80px' }}>
+                <span style={{ color: 'red' }}>{preletter}</span>
+                <span>{prevWord}</span>
+                <span style={{ color: 'red' }}>{postletter}</span>
+            </p>
+
+            <h3>{statement}</h3>
+
+            <div style={{ height: '110px', width: '110px', border: 'aqua', borderStyle: 'solid', margin: 'auto' }}>
+                <p style={{ fontSize: '80px', lineHeight: '1' }}>
+                    {currLetter}
+                </p>
+            </div>
+            <Button class="btn btn-primary btn-large" style={{ margin: '10px' }}>Confirm</Button>
+            <Button class="btn btn-primary btn-large" style={{ margin: '10px' }}>Challenge</Button>
             {/* <div className="col-md-12">{currLetter}</div> */}
         </Container >
     )
