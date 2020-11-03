@@ -1,107 +1,108 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Form } from 'react-bootstrap'
+import { Container, Col, Row } from 'react-bootstrap'
 
 
 
 export default function Game() {
     const [currLetter, setCurrLetter] = useState('')
     const [prevWord, setWord] = useState('')
-    const [isAfter, setIsAfter] = useState(true)
-    const [status, setStatus] = useState("Press left or right arrow key to specify a placement")
-    const [preletter, setPre] = useState('')
-    const [postletter, setPost] = useState('')
+    const [currAddition, setCurrAddition] = useState({ isAfter: true, preletter: '', postletter: '' })
 
-    // console.log("curr:", currLetter, "word:", prevWord, "after?", isAfter)
+    const { isAfter, preletter, postletter } = currAddition
+    const statement = "Type a letter"
+
+
+    const handleKeyDown = (event) => {
+        const code = event.keyCode
+
+        // backspace/delete
+        if (code === 8 || code === 46) {
+            setCurrAddition({ isAfter: null, preletter: '', postletter: '' })
+            setCurrLetter('');
+            console.log("delete")
+
+            // left 
+        } else if (code === 37) {
+            setCurrAddition({ isAfter: false, preletter: currLetter, postletter: '' })
+
+            // right
+        } else if (code === 39) {
+
+            setCurrAddition({ isAfter: true, preletter: '', postletter: currLetter })
+
+            //submit
+        } else if (code === 13) {
+            handleSubmit(event)
+
+            //letter
+        } else if (code >= 65 && code <= 90) {
+            setCurrLetter(event.key)
+
+            if (isAfter) {
+                setCurrAddition({ ...currAddition, preletter: '', postletter: event.key })
+            } else if (isAfter === false) {
+                setCurrAddition({ ...currAddition, preletter: event.key, postletter: '' })
+            } else {
+                setCurrAddition({ ...currAddition, preletter: '', postletter: '' })
+            };
+        }
+    }
+
+    React.useEffect(() => {
+        window.addEventListener('keydown', handleKeyDown);
+
+        // cleanup this component
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [handleKeyDown]);
 
 
 
 
     function handleSubmit(e) {
-        e.preventDefault();
         console.log("submit attempt")
         let updated = prevWord
 
         if (isAfter) {
             updated += currLetter;
+            console.log("in here")
         } else if (isAfter === false) {
             updated = currLetter + updated;
+            console.log("sike")
         };
 
+        setCurrAddition({ isAfter: null, preletter: '', postletter: '' })
         setCurrLetter('')
         setWord(updated)
-        setIsAfter(null)
-        setStatus("Press left or right arrow key to specify a placement")
-        setPre('')
-        setPost('')
     }
-
-    // function handleOutputString(string) {
-    //     this.setState({ prev: string })
-    // }
-
-    function onKeyPressed(e) {
-        // e.preventDefault()
-        // console.log(e.key);
-        if (e.keyCode === 39) {
-            setIsAfter(true)
-            setStatus("Appending letter...")
-            setPre('')
-            setPost(currLetter)
-        } else if (e.keyCode === 37) {
-            setIsAfter(false)
-            setStatus("Prepending letter...")
-            setPost('')
-            setPre(currLetter)
-        }
-    }
-
-    function inputChange(e) {
-        let input = e.target.value
-        setCurrLetter(input)
-
-        if (isAfter) {
-            setPost(input);
-            setPre('');
-        } else if (isAfter === false) {
-            setPre(input);
-            setPost('');
-        } else {
-            setPre('')
-            setPost('')
-        };
-
-    }
-
 
     return (
 
-        <Container className="align-items-center d-flex" style={{ height: '100vh' }} onKeyDown={(e) => onKeyPressed(e)} >
-            <Form onSubmit={handleSubmit} style={{ margin: 'auto', width: '100vw' }}>
-                <Form.Group>
-                    <Form.Label>Letter:</Form.Label>
-                    <Form.Control type="text" value={currLetter}
-                        onChange={inputChange}
-                        maxLength="1"
-                        autoFocus="true"
-                        style={{ height: '150px', width: '150px' }} />
-
-                    <br></br>
-
-                    <Form.Control type="submit" value="Submit" />
-                </Form.Group>
-
-                <h1>
-                    <span style={{ color: 'red' }}>{preletter}</span>
-                    {prevWord}
-                    <span style={{ color: 'red' }}>{postletter}</span></h1>
-                <h2>{status}</h2>
-            </Form>
-
+        <Container className="align-items-center" style={{ height: '100vh', textAlign: 'center' }} >
+            <Row>
+                <Col>
+                    <p className="col-md-12" style={{ fontSize: '80px' }}>
+                        <span style={{ color: 'red' }}>{preletter}</span>
+                        <span>{prevWord}</span>
+                        <span style={{ color: 'red' }}>{postletter}</span>
+                    </p>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <h3>{statement}</h3>
+                </Col>
+            </Row>
+            <Row>
+                <Col>
+                    <p style={{ fontSize: '80px' }}>{currLetter}</p>
+                </Col>
+            </Row>
+            {/* <div className="col-md-12">{currLetter}</div> */}
         </Container >
     )
 }
-
-
 
 
 
