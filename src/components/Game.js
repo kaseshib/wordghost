@@ -6,9 +6,8 @@ import { Container, Col, Row, Button } from 'react-bootstrap'
 export default function Game() {
     const [currLetter, setCurrLetter] = useState('')
     const [prevWord, setWord] = useState('')
-    const [currAddition, setCurrAddition] = useState({ isAfter: true, preletter: '', postletter: '' })
+    const [isAfter, setIsAfter] = useState(true)
 
-    const { isAfter, preletter, postletter } = currAddition
     const [statement, setStatement] = useState("Type in a letter")
 
 
@@ -16,19 +15,21 @@ export default function Game() {
         const code = event.keyCode
 
         // backspace/delete
-        if (code === 8 || code === 46) {
-            setCurrAddition({ isAfter: null, preletter: '', postletter: '' })
+        if (event.shiftKey || event.metaKey || event.ctrlKey || event.altKey || event.repeat) {
+            return
+        }
+        else if (code === 8 || code === 46) {
+            setIsAfter(null)
             setCurrLetter('');
             console.log("delete")
 
             // left 
         } else if (code === 37) {
-            setCurrAddition({ isAfter: false, preletter: currLetter, postletter: '' })
+            setIsAfter(false)
 
             // right
         } else if (code === 39) {
-
-            setCurrAddition({ isAfter: true, preletter: '', postletter: currLetter })
+            setIsAfter(true)
 
             //submit
         } else if (code === 13) {
@@ -37,15 +38,12 @@ export default function Game() {
             //letter
         } else if (code >= 65 && code <= 90) {
             setCurrLetter(event.key)
-
-            if (isAfter) {
-                setCurrAddition({ ...currAddition, preletter: '', postletter: event.key })
-            } else if (isAfter === false) {
-                setCurrAddition({ ...currAddition, preletter: event.key, postletter: '' })
-            } else {
-                setCurrAddition({ ...currAddition, preletter: '', postletter: '' })
+            console.log("pressed", event.key)
+            if (prevWord) {
                 setStatement("Press left or right arrow key and press enter to confirm")
-            };
+            } else {
+                setStatement("Press enter to confirm")
+            }
         }
     }
 
@@ -75,7 +73,8 @@ export default function Game() {
             return;
         };
 
-        setCurrAddition({ isAfter: null, preletter: '', postletter: '' })
+        setIsAfter(null)
+        // setCurrAddition({ isAfter: null, preletter: '', postletter: '' })
         setCurrLetter('')
         setWord(updated)
         setStatement("Type in a letter")
@@ -84,11 +83,19 @@ export default function Game() {
     return (
 
         <Container className="align-items-center" style={{ height: '100vh', textAlign: 'center' }} >
-            <h1 class="display-1" style={{ borderStyle: 'solid', margin: 'auto', border: 'red' }}>WordGhost</h1>
+            <h1 className="display-1" style={{ borderStyle: 'solid', margin: 'auto', border: 'red' }}>WordGhost</h1>
             <p style={{ fontSize: '80px' }}>
-                <span style={{ color: 'red' }}>{preletter}</span>
+                {/* <span style={{ color: 'red' }}>{preletter}</span> */}
+                <span style={{ color: 'red' }}>
+                    {isAfter === false ? currLetter
+                        : ''}
+                </span>
                 <span>{prevWord}</span>
-                <span style={{ color: 'red' }}>{postletter}</span>
+                <span style={{ color: 'red' }}>
+                    {isAfter ? currLetter
+                        : ''}
+                </span>
+                {/* <span style={{ color: 'red' }}>{postletter}</span> */}
             </p>
 
             <h3>{statement}</h3>
@@ -98,8 +105,8 @@ export default function Game() {
                     {currLetter}
                 </p>
             </div>
-            <Button class="btn btn-primary btn-large" style={{ margin: '10px' }}>Confirm</Button>
-            <Button class="btn btn-primary btn-large" style={{ margin: '10px' }}>Challenge</Button>
+            <Button className="btn btn-primary btn-large" style={{ margin: '10px' }}>Confirm</Button>
+            <Button className="btn btn-primary btn-large" style={{ margin: '10px' }}>Challenge</Button>
             {/* <div className="col-md-12">{currLetter}</div> */}
         </Container >
     )
