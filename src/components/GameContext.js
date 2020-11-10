@@ -3,12 +3,12 @@ import PlayerContext from './PlayerContext'
 // import InstructionBox from './InstructionBox'
 import GameHeader from './GameHeader'
 
-export default function GameContext() {
+export default function GameContext(props) {
     return (
         <div>
             {/* <InstructionBox></InstructionBox> */}
             <GameHeader></GameHeader>
-            <PlayerContext></PlayerContext>
+            <PlayerContext turn={props.turn}></PlayerContext>
         </div>
     )
 }
