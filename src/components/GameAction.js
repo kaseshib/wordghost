@@ -10,9 +10,9 @@ export default function GameAction(props) {
         <div>
             <WordInfo isAfter={props.isAfter} letter={props.currLetter} word={props.prevWord} statement={props.statement}></WordInfo>
 
-            <Button className="btn btn-primary btn-large" onClick={props.onSubmit} style={{ margin: '10px' }}>Confirm</Button>
+            <Button className="btn btn-primary btn-large" onClick={props.onSubmit} disabled={props.confirmDisabled} style={{ margin: '10px' }}>Confirm</Button>
 
-            <Button className="btn btn-primary btn-large" onClick={props.handleChallenge} style={{ margin: '10px' }}>Challenge</Button>
+            <Button className="btn btn-primary btn-large" onClick={props.handleChallenge} disabled={props.challengeDisabled} style={{ margin: '10px' }}>Challenge</Button>
         </div>
     )
 }

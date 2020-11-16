@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import { Container, Form, Button } from 'react-bootstrap'
+import { Container, Form, Button, Modal } from 'react-bootstrap'
 import { v4 as uuidV4 } from 'uuid'
 import GameHeader from './GameHeader'
 
@@ -16,6 +16,8 @@ export default function Login({ onIdSubmit }) {
     function createNewId() {
         onIdSubmit(uuidV4())
     }
+
+
 
     return (
         <Container className="align-items-center" style={{ height: '100vh', textAlign: 'center' }}>
