@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Container } from 'react-bootstrap'
 import GameContext from './GameContext'
 import GameAction from './GameAction'
+import GameOver from './GameOver'
+import ChallengeModal from './ChallengeModal'
+import ResultModal from './ResultModal'
 
-
-export default function Game() {
+export default function Game({ playerOne, playerTwo }) {
     const [playOneWins, setPlayOneWins] = useState(0)
     const [playTwoWins, setPlayTwoWins] = useState(0)
 
-    const [seriesScore, setSeriesScore] = useState([0, 0])
     const [currLetter, setCurrLetter] = useState('')
     const [prevWord, setWord] = useState('')
     const [isAfter, setIsAfter] = useState(true)
@@ -16,17 +17,26 @@ export default function Game() {
     const [confirmDisabled, setConfirmDisabled] = useState(true)
     const [challengeDisabled, setChallengeDisabled] = useState(true)
     const [indicator, setIndicator] = useState("⭐")
+    const [gameOver, setGameOver] = useState(false)
 
+    const [challengedWord, setChallengedWord] = useState("")
+    // const [activeInput, setActiveInput] = useState(true)
+
+    const [showModal, setShowModal] = useState(false)
+    const [displayAlert, setDisplayAlert] = useState(false)
+
+    const [prevChallengeSuccess, setPrevChallengeSuccess] = useState(false)
 
     var gameStart = Math.floor(Math.random() * 2)
 
     const [turn, setTurn] = useState(gameStart)
 
 
+
     const handleKeyDown = (event) => {
         const code = event.keyCode
 
-        if (event.shiftKey || event.metaKey || event.ctrlKey || event.altKey || event.repeat) {
+        if (showModal || event.shiftKey || event.metaKey || event.ctrlKey || event.altKey || event.repeat) {
             return
         }
         // backspace/delete
@@ -54,7 +64,6 @@ export default function Game() {
             //letter
         } else if (code >= 65 && code <= 90) {
             setCurrLetter(event.key)
-            console.log("pressed", event.key)
             setChallengeDisabled(true)
             if (isAfter === true || isAfter === false) {
                 setConfirmDisabled(false)
@@ -79,10 +88,39 @@ export default function Game() {
         };
     }, [handleKeyDown]);
 
+    useEffect(() => {
+        if (playOneWins === 3 || playTwoWins == 3) {
+            setGameOver(true)
+        }
+    }, [playOneWins, playTwoWins]);
+
 
     useEffect(() => {
-        console.log("turn: " + turn)
-    }, [turn])
+        if (!challengedWord) {
+            return
+        }
+        console.log(challengedWord)
+        console.log("boo yah!")
+        let winner
+        let playerChallenged = 1 - turn ? playerTwo : playerOne
+        if (checkValidWord(challengedWord)) {
+            setPrevChallengeSuccess(true)
+            winner = 1 - turn
+        } else {
+            winner = turn
+            setPrevChallengeSuccess(false)
+        }
+
+
+        if (winner === 0) {
+            setPlayOneWins(playOneWins => playOneWins + 1)
+        } else {
+            setPlayTwoWins(playTwoWins => playTwoWins + 1)
+        }
+
+        displayResult()
+        resetWordInfo()
+    }, [showModal]);
 
     function handleSubmit() {
         console.log("submit attempt")
@@ -96,11 +134,7 @@ export default function Game() {
             return;
         };
 
-        console.log("before", turn)
         setTurn(turn => 1 - turn)
-        console.log("after", turn)
-
-
         setIsAfter(null)
         setCurrLetter('')
         setWord(updated)
@@ -111,46 +145,46 @@ export default function Game() {
 
     function handleChallenge() {
         console.log("challenge attempt")
-
-        setTurn(prevTurn => 1 - prevTurn)
-        setIndicator("⚠️")
-        setTimeout(500)
-        console.log(indicator)
-        promptPlayer();
+        setShowModal(true)
+        // promptPlayer();
 
 
-        // setSeriesWins(prev => [...prev, ])
+        // setCurrLetter('')
+        // setWord('')
+        // setIsAfter(true)
+        // setStatement("Type in a letter")
+        // gameStart = 1 - gameStart
+        // setTurn(gameStart)
+        // setConfirmDisabled(true)
+        // setChallengeDisabled(true)
+        // setIndicator("⭐")
 
-        setCurrLetter('')
-        setWord('')
-        setIsAfter(true)
-        setStatement("Type in a letter")
-        // alert("Player " + winner + " wins!")
-        gameStart = 1 - gameStart
-        setTurn(gameStart)
-        setConfirmDisabled(true)
-        setChallengeDisabled(true)
-        setIndicator("⭐")
 
     }
 
     function promptPlayer() {
         let winner
-        let intendedWord = prompt("What word were you thinking of?")
+        let playerChallenged = 1 - turn ? playerTwo : playerOne
+
+        let intendedWord = prompt(playerChallenged + ", what word were you thinking of?")
+
+
         if (checkValidWord(intendedWord)) {
-            alert("Player " + ((1 - turn) + 1) + ", you win this round!")
+            alert(playerChallenged + ", you win this round!")
             winner = 1 - turn
         } else {
-            alert("Player " + ((1 - turn) + 1) + ", you lose this round!")
+            alert(playerChallenged + ", you lose this round!")
             winner = turn
         }
-        console.log("winner: " + winner)
 
         if (winner === 0) {
             setPlayOneWins(playOneWins => playOneWins + 1)
         } else {
             setPlayTwoWins(playTwoWins => playTwoWins + 1)
         }
+
+
+
     }
 
     function checkValidWord(intended) {
@@ -165,6 +199,34 @@ export default function Game() {
     }
 
 
+
+    function resetWordInfo() {
+
+        setCurrLetter('')
+        setWord('')
+        setIsAfter(true)
+        setStatement("Type in a letter")
+        setConfirmDisabled(true)
+        setChallengeDisabled(true)
+    }
+
+    function resetGameContext() {
+        setPlayOneWins(0)
+        setPlayTwoWins(0)
+        setGameOver(false)
+    }
+
+    function resetAll() {
+        resetWordInfo()
+        resetGameContext()
+    }
+
+
+    function displayResult() {
+        setDisplayAlert(true)
+        setTimeout(() => setDisplayAlert(false), 2000)
+    }
+
     return (
 
         <Container className="align-items-center" style={{ height: '100vh', textAlign: 'center' }} >
@@ -174,19 +236,47 @@ export default function Game() {
                 playOneWins={playOneWins}
                 playTwoWins={playTwoWins}
                 indicator={indicator}
+                playerOne={playerOne}
+                playerTwo={playerTwo}
             >
             </GameContext>
+            { gameOver ?
+                <GameOver
+                    winner={playOneWins > playTwoWins ? playerOne : playerTwo}
 
-            <GameAction
-                handleSubmit={handleSubmit}
-                handleChallenge={handleChallenge}
-                currLetter={currLetter}
-                prevWord={prevWord}
-                isAfter={isAfter}
-                statement={statement}
-                confirmDisabled={confirmDisabled}
-                challengeDisabled={challengeDisabled}
-            ></GameAction>
+                    resetAll={resetAll}>
+
+                </GameOver>
+                :
+                <>
+                    <GameAction
+                        handleSubmit={handleSubmit}
+                        handleChallenge={handleChallenge}
+                        currLetter={currLetter}
+                        prevWord={prevWord}
+                        isAfter={isAfter}
+                        statement={statement}
+                        confirmDisabled={confirmDisabled}
+                        challengeDisabled={challengeDisabled}
+                    ></GameAction>
+
+                    <ChallengeModal
+                        show={showModal}
+                        setShow={setShowModal}
+                        prevWord={prevWord}
+                        playerChallenged={1 - turn ? playerTwo : playerOne} setChallengedWord={setChallengedWord}
+                    >
+
+                    </ChallengeModal>
+
+                    <ResultModal
+                        show={displayAlert}
+                        isValid={prevChallengeSuccess}
+                        word={challengedWord}
+                        playerChallenged={1 - turn ? playerTwo : playerOne} ></ResultModal>
+                </>
+            }
+
         </Container >
     )
 }

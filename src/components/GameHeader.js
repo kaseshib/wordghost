@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function GameHeader() {
     return (
-        <h1 className="display-1" style={{ borderStyle: 'solid', margin: '5%', border: 'red' }}>
+        <h1 className="display-1" style={{ position: "absolute", right: "0%", left: "0%", borderStyle: 'solid', margin: '5%', border: 'red' }}>
             WordGhost
         </h1>
     )
