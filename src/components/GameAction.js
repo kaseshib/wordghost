@@ -6,9 +6,12 @@ export default function GameAction(props) {
 
     const onSubmit = () => props.handleSubmit();
 
+    const onArrow = () => console.log('arrow pressed')
+
     return (
         <div style={{ position: "absolute", right: "0%", left: "0%", marginLeft: "auto", marginRight: "auto", top: "30%" }}>
-            <WordInfo isAfter={props.isAfter} letter={props.currLetter} word={props.prevWord} statement={props.statement}></WordInfo>
+
+            <WordInfo setIsAfter={props.setIsAfter} isAfter={props.isAfter} letter={props.currLetter} word={props.prevWord} statement={props.statement}></WordInfo>
 
             <Button className="btn btn-primary btn-large" onClick={props.handleSubmit} disabled={props.confirmDisabled} style={{ margin: '10px' }}>Confirm</Button>
 

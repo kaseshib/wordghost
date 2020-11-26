@@ -99,8 +99,6 @@ export default function Game({ playerOne, playerTwo }) {
         if (!challengedWord) {
             return
         }
-        console.log(challengedWord)
-        console.log("boo yah!")
         let winner
         let playerChallenged = 1 - turn ? playerTwo : playerOne
         if (checkValidWord(challengedWord)) {
@@ -146,44 +144,6 @@ export default function Game({ playerOne, playerTwo }) {
     function handleChallenge() {
         console.log("challenge attempt")
         setShowModal(true)
-        // promptPlayer();
-
-
-        // setCurrLetter('')
-        // setWord('')
-        // setIsAfter(true)
-        // setStatement("Type in a letter")
-        // gameStart = 1 - gameStart
-        // setTurn(gameStart)
-        // setConfirmDisabled(true)
-        // setChallengeDisabled(true)
-        // setIndicator("⭐")
-
-
-    }
-
-    function promptPlayer() {
-        let winner
-        let playerChallenged = 1 - turn ? playerTwo : playerOne
-
-        let intendedWord = prompt(playerChallenged + ", what word were you thinking of?")
-
-
-        if (checkValidWord(intendedWord)) {
-            alert(playerChallenged + ", you win this round!")
-            winner = 1 - turn
-        } else {
-            alert(playerChallenged + ", you lose this round!")
-            winner = turn
-        }
-
-        if (winner === 0) {
-            setPlayOneWins(playOneWins => playOneWins + 1)
-        } else {
-            setPlayTwoWins(playTwoWins => playTwoWins + 1)
-        }
-
-
 
     }
 
@@ -208,6 +168,7 @@ export default function Game({ playerOne, playerTwo }) {
         setStatement("Type in a letter")
         setConfirmDisabled(true)
         setChallengeDisabled(true)
+
     }
 
     function resetGameContext() {
@@ -224,7 +185,12 @@ export default function Game({ playerOne, playerTwo }) {
 
     function displayResult() {
         setDisplayAlert(true)
-        setTimeout(() => setDisplayAlert(false), 2000)
+        setTimeout(
+            () => {
+                setDisplayAlert(false)
+                setChallengedWord("")
+            }, 6000)
+
     }
 
     return (
@@ -255,6 +221,7 @@ export default function Game({ playerOne, playerTwo }) {
                         currLetter={currLetter}
                         prevWord={prevWord}
                         isAfter={isAfter}
+                        setIsAfter={setIsAfter}
                         statement={statement}
                         confirmDisabled={confirmDisabled}
                         challengeDisabled={challengeDisabled}

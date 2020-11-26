@@ -21,7 +21,7 @@ export default function UsernamePrompt({ user, setUser, setNumSubmitted }) {
         <Form onSubmit={handleSubmit} style={{ width: "300px", margin: "auto", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>
             <Form.Label column="lg">Player {user}, enter your name</Form.Label>
             <Form.Control size="lg" type="text" placeholder="Name" onChange={handleChange}></Form.Control>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" size="lg" style={{ marginTop: "20px" }}>Submit</Button>
         </Form>
     )
 }

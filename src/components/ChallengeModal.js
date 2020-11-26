@@ -16,7 +16,10 @@ export default function ChallengeModal({ show, setShow, prevWord, playerChalleng
         handleClose()
     }
 
-
+    const handleConcede = (e) => {
+        setChallengedWord("#")
+        handleSubmit(e)
+    }
 
     function handleChange(event) {
         let val = event.target.value
@@ -33,8 +36,9 @@ export default function ChallengeModal({ show, setShow, prevWord, playerChalleng
                 onHide={handleClose}
                 backdrop="static"
                 keyboard={false}
+                centered
             >
-                <Modal.Header closeButton>
+                <Modal.Header>
                     <Modal.Title>Challenge!</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -58,7 +62,10 @@ export default function ChallengeModal({ show, setShow, prevWord, playerChalleng
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="primary" onClick={handleClose}>
-                        Enter
+                        Submit
+                    </Button>
+                    <Button variant="outline-danger" onClick={handleConcede}>
+                        Concede Word
                     </Button>
                 </Modal.Footer>
             </Modal>
