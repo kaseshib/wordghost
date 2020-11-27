@@ -88,11 +88,7 @@ export default function Game({ playerOne, playerTwo }) {
         };
     }, [handleKeyDown]);
 
-    useEffect(() => {
-        if (playOneWins === 3 || playTwoWins == 3) {
-            setGameOver(true)
-        }
-    }, [playOneWins, playTwoWins]);
+
 
 
     useEffect(() => {
@@ -119,6 +115,16 @@ export default function Game({ playerOne, playerTwo }) {
         displayResult()
         resetWordInfo()
     }, [showModal]);
+
+    useEffect(() => {
+        if (playOneWins === 3 || playTwoWins == 3) {
+
+            setTimeout(
+                () => {
+                    setGameOver(true)
+                }, 2000)
+        }
+    }, [playOneWins, playTwoWins]);
 
     function handleSubmit() {
         console.log("submit attempt")
