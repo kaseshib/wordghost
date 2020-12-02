@@ -12,9 +12,10 @@ export default function PlayerContext(props) {
 
 
     return (
-        <div style={{ margin: "auto", position: "absolute", right: "15%", top: "15%" }}>
-            <PlayerResults username={p1} wins={props.playOneWins} games={3}></PlayerResults>
-            <PlayerResults username={p2} wins={props.playTwoWins} games={3}></PlayerResults>
+        <div style={{ margin: "auto", position: "absolute", right: "15%", top: "15%", textAlign: "right" }}>
+            <PlayerResults username={p1} wins={props.playOneWins} games={3} color={props.colors[0]}></PlayerResults>
+            <PlayerResults username={p2} wins={props.playTwoWins} games={3}
+                color={props.colors[1]}></PlayerResults>
         </div>
     )
 }

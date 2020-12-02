@@ -1,7 +1,9 @@
 import React from 'react'
 
 export default function GameCircle(props) {
-    var color = props.win ? "#2145B0" : "#C2C2C2"
+    // var color = props.win ? "#2145B0" : "#C2C2C2"
+    var color = props.win ? props.color : "#C2C2C2"
+
 
     var circleStyle = {
         padding: 5,

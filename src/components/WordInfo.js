@@ -10,17 +10,21 @@ export default function WordInfo(props) {
     const onRight = () => props.setIsAfter(true)
 
 
+    console.log("turn", props.turn)
     const gray = "invert(89%) sepia(1%) saturate(25%) hue-rotate(19deg) brightness(94%) contrast(96%)"
     const black = ""
-    const red = "invert(10%) sepia(98%) saturate(7485%) hue-rotate(357deg) brightness(91%) contrast(122%)"
+    const color = props.turn === 0
+        ? "invert(18%) sepia(84%) saturate(3255%) hue-rotate(349deg) brightness(78%) contrast(90%)"
+        : "invert(53%) sepia(35%) saturate(675%) hue-rotate(165deg) brightness(82%) contrast(94%)"
+
 
     let leftColor = black
     let rightColor = black
 
     if (props.isAfter === true) {
-        rightColor = red
+        rightColor = color
     } else if (props.isAfter === false) {
-        leftColor = red
+        leftColor = color
     }
 
     if (props.word === "" || props.letter === "") {
@@ -30,7 +34,7 @@ export default function WordInfo(props) {
 
     return (
         <div>
-            <CurrentWord isAfter={props.isAfter} currLetter={props.letter} word={props.word}></CurrentWord>
+            <CurrentWord isAfter={props.isAfter} currLetter={props.letter} word={props.word} color={props.color}></CurrentWord>
             <GamePrompt statement={props.statement}></GamePrompt>
 
             <span style={{ display: "inline-flex", margin: "15px" }}>

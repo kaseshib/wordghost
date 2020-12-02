@@ -11,7 +11,7 @@ export default function GameAction(props) {
     return (
         <div style={{ position: "absolute", right: "0%", left: "0%", marginLeft: "auto", marginRight: "auto", top: "30%" }}>
 
-            <WordInfo setIsAfter={props.setIsAfter} isAfter={props.isAfter} letter={props.currLetter} word={props.prevWord} statement={props.statement}></WordInfo>
+            <WordInfo setIsAfter={props.setIsAfter} isAfter={props.isAfter} letter={props.currLetter} word={props.prevWord} statement={props.statement} color={props.color} turn={props.turn}></WordInfo>
 
             <Button className="btn btn-primary btn-large" onClick={props.handleSubmit} disabled={props.confirmDisabled} style={{ margin: '10px' }}>Confirm</Button>
 
