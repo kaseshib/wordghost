@@ -11,8 +11,8 @@ export default function GameCircle(props) {
         display: "inline-block",
         backgroundColor: color,
         borderRadius: "50%",
-        width: 10,
-        height: 10,
+        width: 12,
+        height: 12,
     };
 
     return (

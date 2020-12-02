@@ -2,10 +2,11 @@ import React from 'react'
 
 export default function GameHeader() {
     return (
-        <a href="/" style={{ color: "black" }}>
-            <h1 className="display-1" style={{ position: "absolute", right: "0%", left: "0%", borderStyle: 'solid', margin: '5%', border: 'red' }}>
+
+        <h1 className="display-1" style={{ position: "absolute", right: "0%", left: "0%", borderStyle: 'solid', margin: '5%', border: 'red' }}>
+            <a href="/" style={{ color: "black", textDecoration: 'none' }}>
                 WordGhost
-            </h1>
-        </a>
+            </a>
+        </h1>
     )
 }

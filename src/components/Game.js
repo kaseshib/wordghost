@@ -50,6 +50,7 @@ export default function Game({ playerOne, playerTwo }) {
             setIsAfter(null)
             setCurrLetter('');
             // console.log("delete")
+            setStatement("Type in a letter")
             setConfirmDisabled(true)
             if (prevWord) {
                 setChallengeDisabled(false)
@@ -121,12 +122,21 @@ export default function Game({ playerOne, playerTwo }) {
             const fetchWordDef = async () => {
                 setPrevChallengeSuccess(false)
                 setPrevWinner(turn)
-                if (challengedWord.length < 4) {
+                if (challengedWord === "#") {
+                    setResult("bluff")
+                    setDefinition("")
+                } else if (challengedWord.length < 4) {
                     setResult("short")
+                    setDefinition("")
+
                 } else if (!challengedWord.includes(prevWord)) {
                     setResult("notContained")
+                    setDefinition("")
+
                 } else if (challengedWord.split(" ").length > 1) {
                     setResult("invalid")
+                    setDefinition("")
+
                 } else {
                     await axios.get(`/${challengedWord}`).then(response => {
                         def = response.data.definition
@@ -258,11 +268,12 @@ export default function Game({ playerOne, playerTwo }) {
     function resetWordInfo() {
         console.log("------ reset word info ------")
         setCurrLetter('')
-        setWord('')
+
         setIsAfter(true)
         setStatement("Type in a letter")
         setConfirmDisabled(true)
         setChallengeDisabled(true)
+        setWord('')
 
     }
 
