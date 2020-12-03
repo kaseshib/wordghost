@@ -10,7 +10,6 @@ export default function WordInfo(props) {
     const onRight = () => props.setIsAfter(true)
 
 
-    console.log("turn", props.turn)
     const gray = "invert(89%) sepia(1%) saturate(25%) hue-rotate(19deg) brightness(94%) contrast(96%)"
     const black = ""
     const color = props.turn === 0
@@ -38,11 +37,23 @@ export default function WordInfo(props) {
             <GamePrompt statement={props.statement}></GamePrompt>
 
             <span style={{ display: "inline-flex", margin: "15px" }}>
-                <img src={"leftarrow.png"} width="90px" height="97px" onClick={onLeft} style={{ filter: leftColor }} />
+                <img
+                    src={"leftarrow.png"}
+                    alt="left"
+                    width="90px"
+                    height="97px"
+                    onClick={onLeft}
+                    style={{ filter: leftColor }} />
 
                 <EnteredKey letter={props.letter}></EnteredKey>
 
-                <img src={"rightarrow.png"} width="90px" height="97px" onClick={onRight} style={{ filter: rightColor }} />
+                <img
+                    src={"rightarrow.png"}
+                    alt="right"
+                    width="90px"
+                    height="97px"
+                    onClick={onRight}
+                    style={{ filter: rightColor }} />
             </span>
 
         </div>

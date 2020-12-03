@@ -1,11 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import { Modal, Button, Form } from 'react-bootstrap';
 
 
 export default function ChallengeModal({ show, setShow, prevWord, playerChallenged, setChallengedWord }) {
-
-    // const [enteredWord, setEnteredWord] = useState("")
 
     const handleClose = () => {
         setShow(false);
@@ -71,20 +69,4 @@ export default function ChallengeModal({ show, setShow, prevWord, playerChalleng
             </Modal>
         </>
     );
-
-
-
-
-
-
-
-
-
-
-    return (
-
-        <div>
-
-        </div>
-    )
 }

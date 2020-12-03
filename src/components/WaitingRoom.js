@@ -1,6 +1,5 @@
 import React from 'react'
 import GameHeader from './GameHeader'
-import Game from './Game'
 import { Button } from 'react-bootstrap'
 
 

@@ -1,6 +1,6 @@
-import React, { useRef, useState } from 'react'
-import { Container, Form, Button, Modal } from 'react-bootstrap'
-import { v4 as uuidV4 } from 'uuid'
+import React, { useState } from 'react'
+import { Container, Button, Row, Col } from 'react-bootstrap'
+// import { v4 as uuidV4 } from 'uuid'
 import GameHeader from './GameHeader'
 import UsernamePrompt from './UsernamePrompt'
 import InstructionBox from './InstructionBox'
@@ -14,19 +14,23 @@ export default function Login({ setUserOne, setUserTwo, numSubmitted, setNumSubm
 
     // const idRef = useRef()
 
-    function handleSubmit(e) {
-        e.preventDefault()
+    // function handleSubmit(e) {
+    //     e.preventDefault()
 
-        // onIdSubmit(idRef.current.value)
-    }
+    //     // onIdSubmit(idRef.current.value)
+    // }
 
     function handleClick() {
         setNumSubmitted(prev => prev + 1)
     }
 
     return (
-        <Container className="align-items-center" style={{ height: '100vh', textAlign: 'center' }}>
-            <GameHeader></GameHeader>
+        <Container className="align-items-center mb-4" style={{ height: '100vh', textAlign: 'center', display: "flow-root" }}>
+            <Row className="mb-4">
+                <Col>
+                    <GameHeader></GameHeader>
+                </Col>
+            </Row>
 
             {/* <Form onSubmit={handleSubmit} style={{ width: '200px', margin: 'auto' }}>
                 <Form.Group>
@@ -37,13 +41,21 @@ export default function Login({ setUserOne, setUserTwo, numSubmitted, setNumSubm
     </Form> */}
 
             {numSubmitted === 0 ?
-                <><Button onClick={handleClick} size="lg" style={{ width: "300px", height: "70px", fontSize: "30px", position: "absolute", top: "50%", transform: "translate(-50%, -50%)" }} variant="primary">Start New Game</Button>
+                <><Row className="mb-4">
+                    <Col>
+                        <Button onClick={handleClick} size="lg" style={{ width: "300px", height: "70px", fontSize: "30px" }} variant="primary">Start New Game</Button>
+                    </Col>
+                </Row>
 
-                    <Button onClick={handleShowInstructions} style={{ width: "200px", height: "50px", fontSize: "21px", position: "absolute", top: "60%", transform: "translate(-50%, -50%)" }} variant="secondary">Instructions</Button>
+                    <Row className="mb-4">
+                        <Col>
+                            <Button onClick={handleShowInstructions} style={{ width: "200px", height: "50px", fontSize: "21px" }} variant="secondary">Instructions</Button>
+                        </Col>
+                    </Row>
 
                     <InstructionBox
-                        showInstructions={showInstructions}
-                        handleCloseInstructions={handleCloseInstructions}
+                        show={showInstructions}
+                        handleClose={handleCloseInstructions}
                     ></InstructionBox>
                 </>
 
