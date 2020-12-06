@@ -9,9 +9,6 @@ function App() {
 
   const [numSubmitted, setNumSubmitted] = useState(0)
 
-  // const [gameStarted, setGameStarted] = useState(false);
-
-
   return (
     numSubmitted === 3 ? <Game playerOne={userOne} playerTwo={userTwo} />
       : <Login

@@ -43,7 +43,7 @@ export default function Login({ setUserOne, setUserTwo, numSubmitted, setNumSubm
             {numSubmitted === 0 ?
                 <><Row className="mb-4">
                     <Col>
-                        <Button onClick={handleClick} size="lg" style={{ width: "300px", height: "70px", fontSize: "30px", marginTop: "20vh" }} variant="primary">Start New Game</Button>
+                        <Button onClick={handleClick} size="lg" style={{ width: "300px", height: "70px", fontSize: "30px", marginTop: "10vh" }} variant="primary">Start New Game</Button>
                     </Col>
                 </Row>
 
