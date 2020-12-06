@@ -7,7 +7,6 @@ import ChallengeModal from './ChallengeModal'
 import ResultModal from './ResultModal'
 import axios from "axios";
 
-axios.defaults.baseURL = "https://ghostwordgame.herokuapp.com";
 
 export default function Game({ playerOne, playerTwo }) {
     const [playOneWins, setPlayOneWins] = useState(0)
@@ -36,6 +35,9 @@ export default function Game({ playerOne, playerTwo }) {
 
 
     const colors = ["firebrick", "steelblue"]
+
+    const baseUrl = "https://ghostwordgame.herokuapp.com"
+
 
     const handleSubmit = useCallback(() => {
         let updated = prevWord
@@ -146,7 +148,7 @@ export default function Game({ playerOne, playerTwo }) {
                     setDefinition("")
 
                 } else {
-                    await axios.get(`/${challengedWord}`).then(response => {
+                    await axios.get(`${baseUrl}/${challengedWord}`).then(response => {
                         def = response.data.definition
                     })
                     setDefinition(def)
@@ -190,8 +192,11 @@ export default function Game({ playerOne, playerTwo }) {
 
 
     async function handleChallenge() {
+        const url = `${baseUrl}/${prevWord}`
+        console.log(url)
         if (prevWord.length > 3) {
-            await axios.get(`/${prevWord}`).then(response => {
+            await axios.get(url).then(response => {
+                console.log(response)
                 if (response.data.definition) {
                     setResult("prevCorrect")
                     setDefinition(response.data.definition)
