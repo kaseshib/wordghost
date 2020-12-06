@@ -65,7 +65,7 @@ export default function Game({ playerOne, playerTwo }) {
     const handleKeyDown = useCallback((event) => {
         const code = event.keyCode
 
-        if (showModal || displayAlert || event.shiftKey || event.metaKey || event.ctrlKey || event.altKey || event.repeat) {
+        if (showModal || displayAlert || event.metaKey || event.ctrlKey || event.altKey || event.repeat) {
             return
         }
         // backspace/delete
@@ -94,7 +94,7 @@ export default function Game({ playerOne, playerTwo }) {
             handleSubmit(event)
             //letter
         } else if (code >= 65 && code <= 90) {
-            setCurrLetter(event.key)
+            setCurrLetter(event.key.toLowerCase())
             setChallengeDisabled(true)
 
             if (isAfter === true || isAfter === false) {
