@@ -1,5 +1,5 @@
 # WordGhost
-[wordghost.org]
+https://www.wordghost.org
 
 React implementation of the word game commonly called ["Ghost"](https://www.wikiwand.com/en/Ghost_(game)).
 
