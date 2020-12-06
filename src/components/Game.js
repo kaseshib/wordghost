@@ -7,7 +7,7 @@ import ChallengeModal from './ChallengeModal'
 import ResultModal from './ResultModal'
 import axios from "axios";
 
-
+axios.defaults.baseURL = "https://ghostwordgame.herokuapp.com";
 
 export default function Game({ playerOne, playerTwo }) {
     const [playOneWins, setPlayOneWins] = useState(0)
