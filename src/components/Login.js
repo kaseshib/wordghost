@@ -26,9 +26,9 @@ export default function Login({ setUserOne, setUserTwo, numSubmitted, setNumSubm
 
     return (
         <Container className="align-items-center mb-4" style={{ height: '100vh', textAlign: 'center', display: "flow-root" }}>
-            <Row className="mb-4">
+            <Row className="mb-4" style={{ marginTop: "10vh" }}>
                 <Col>
-                    <GameHeader></GameHeader>
+                    <GameHeader font="max(70px, 10vw)"></GameHeader>
                 </Col>
             </Row>
 

@@ -51,10 +51,15 @@ export default function ResultModal({ show, winner, loser, guess, prevWord, defi
                         <b>{winner} </b>
                          wins the challenge!
                     </h2>
-
+                    <br></br>
                     <h3>{statement}</h3>
-
-                    <h6>{definition}</h6>
+                    {definition ?
+                        <>
+                            <br></br>
+                            <h6>{definition}
+                            </h6>
+                        </>
+                        : <></>}
 
 
                 </Modal.Body>

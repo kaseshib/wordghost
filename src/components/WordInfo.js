@@ -6,8 +6,18 @@ import EnteredKey from './EnteredKey'
 
 export default function WordInfo(props) {
 
-    const onLeft = () => props.setIsAfter(false)
-    const onRight = () => props.setIsAfter(true)
+    const onLeft = () => {
+        props.setIsAfter(false)
+        if (props.letter) {
+            props.setConfirmDisabled(false)
+        }
+    }
+    const onRight = () => {
+        props.setIsAfter(true)
+        if (props.letter) {
+            props.setConfirmDisabled(false)
+        }
+    }
 
 
     const gray = "invert(89%) sepia(1%) saturate(25%) hue-rotate(19deg) brightness(94%) contrast(96%)"

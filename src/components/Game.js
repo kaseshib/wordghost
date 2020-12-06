@@ -39,7 +39,6 @@ export default function Game({ playerOne, playerTwo }) {
 
     const handleSubmit = useCallback(() => {
         let updated = prevWord
-        console.log("updated:", updated)
 
         if (isAfter) {
             updated += currLetter;
@@ -51,7 +50,6 @@ export default function Game({ playerOne, playerTwo }) {
             return;
         };
 
-        console.log("Updated after:", updated)
 
         setTurn(turn => 1 - turn)
         setIsAfter(null)
@@ -64,7 +62,6 @@ export default function Game({ playerOne, playerTwo }) {
 
     const handleKeyDown = useCallback((event) => {
         const code = event.keyCode
-        // console.log(event)
 
         if (showModal || displayAlert || event.shiftKey || event.metaKey || event.ctrlKey || event.altKey || event.repeat) {
             return
@@ -92,11 +89,9 @@ export default function Game({ playerOne, playerTwo }) {
             }
             //submit
         } else if (code === 13) {
-            console.log("submit attempt")
             handleSubmit(event)
             //letter
         } else if (code >= 65 && code <= 90) {
-            // console.log("in here")
             setCurrLetter(event.key)
             setChallengeDisabled(true)
 
@@ -116,11 +111,8 @@ export default function Game({ playerOne, playerTwo }) {
 
     useEffect(() => {
         window.addEventListener('keydown', handleKeyDown);
-        console.log('added listener')
-        // cleanup this component
         return () => {
             window.removeEventListener('keydown', handleKeyDown);
-            console.log("removed listener")
         };
     }, [handleKeyDown]);
 
@@ -135,7 +127,6 @@ export default function Game({ playerOne, playerTwo }) {
 
             let def = ''
 
-            console.log("before", def)
 
             const fetchWordDef = async () => {
                 setPrevWinner(turn)
@@ -205,7 +196,6 @@ export default function Game({ playerOne, playerTwo }) {
                     setResult("prevCorrect")
                     setDefinition(response.data.definition)
                     displayResult()
-                    console.log("----- was word ------")
 
                     if (turn === 0) {
                         setPlayOneWins(playOneWins => playOneWins + 1)
@@ -228,7 +218,6 @@ export default function Game({ playerOne, playerTwo }) {
     }
 
     function resetWordInfo() {
-        console.log("------ reset word info ------")
         setCurrLetter('')
 
         setIsAfter(true)
@@ -284,7 +273,7 @@ export default function Game({ playerOne, playerTwo }) {
                 </GameOver>
                 :
                 <>
-                    <Row>
+                    <Row style={{ marginTop: "5vh" }}>
                         <Col>
                             <GameAction
                                 handleSubmit={handleSubmit}
@@ -295,7 +284,9 @@ export default function Game({ playerOne, playerTwo }) {
                                 setIsAfter={setIsAfter}
                                 statement={statement}
                                 confirmDisabled={confirmDisabled}
+                                setConfirmDisabled={setConfirmDisabled}
                                 challengeDisabled={challengeDisabled}
+
                                 turn={turn}
                                 color={turn ? colors[1] : colors[0]}
                             >

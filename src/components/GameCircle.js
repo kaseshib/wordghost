@@ -6,13 +6,13 @@ export default function GameCircle(props) {
 
 
     var circleStyle = {
-        padding: 5,
-        margin: 8,
+        padding: "max(.5vw, 1px)",
+        margin: "min(0.5vw, 19px) 0vw min(0.5vw, 19px) min(0.5vw, 19px)",
         display: "inline-block",
         backgroundColor: color,
         borderRadius: "50%",
-        width: 12,
-        height: 12,
+        width: "max(8px, 1.5vw)",
+        height: "max(8px, 1.5vw)",
     };
 
     return (

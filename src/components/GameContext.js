@@ -39,7 +39,7 @@ export default function GameContext(props) {
         <Row style={{ height: "170px", alignContent: "center" }}>
             <Col style={{ alignSelf: "center" }}>
 
-                <img width="50" src="/instruction.jpg" alt="Instructions" onClick={handleInstructionClick} style={{ float: "right" }}></img>
+                <img src="/instruction.jpg" alt="Instructions" onClick={handleInstructionClick} style={{ float: "right", width: "min(50px, 8vw)" }}></img>
 
             </Col>
             <InstructionBox
