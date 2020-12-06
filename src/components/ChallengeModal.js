@@ -20,12 +20,9 @@ export default function ChallengeModal({ show, setShow, prevWord, playerChalleng
     }
 
     function handleChange(event) {
-        let val = event.target.value
-        // setEnteredWord(val)
+        let val = event.target.value.toLowerCase()
         setChallengedWord(val)
     }
-
-
 
     return (
         <>
